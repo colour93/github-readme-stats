@@ -71,6 +71,7 @@ describe("Test fetchStats", () => {
       totalPRs: 300,
       totalStars: 400,
       rank,
+      avatar: "https://avatars.githubusercontent.com/u/35374649?v=4"
     });
   });
 
@@ -104,6 +105,7 @@ describe("Test fetchStats", () => {
       totalPRs: 300,
       totalStars: 400,
       rank,
+      avatar: "https://avatars.githubusercontent.com/u/35374649?v=4"
     });
   });
 
@@ -132,6 +134,7 @@ describe("Test fetchStats", () => {
       totalPRs: 300,
       totalStars: 400,
       rank,
+      avatar: "https://avatars.githubusercontent.com/u/35374649?v=4"
     });
   });
 });

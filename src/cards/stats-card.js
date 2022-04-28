@@ -61,6 +61,7 @@ const renderStatsCard = (stats = {}, options = { hide: [] }) => {
     totalPRs,
     contributedTo,
     rank,
+    avatar
   } = stats;
   const {
     hide = [],
@@ -68,6 +69,7 @@ const renderStatsCard = (stats = {}, options = { hide: [] }) => {
     hide_title = false,
     hide_border = false,
     hide_rank = false,
+    show_avatar = false,
     include_all_commits = false,
     line_height = 25,
     title_color,
@@ -180,9 +182,20 @@ const renderStatsCard = (stats = {}, options = { hide: [] }) => {
     ? ""
     : `<g data-testid="rank-circle" 
           transform="translate(400, ${height / 2 - 50})">
+        `+ (show_avatar ? `
+          <g data-testid="rank-avatar">
+            <rect id="rank-avatar-rect" x="-47" y="-29" width="74" height="74" rx="50%" />
+            <clipPath id="rank-avatar-clip">
+                <use href="#rank-avatar-rect" />
+            </clipPath>
+            <image x="-47" y="-29" xlink:href="${avatar}" width="74"
+                clip-path="url(#rank-avatar-clip)">
+            </image>
+          </g>
+        ` : "") +`
         <circle class="rank-circle-rim" cx="-10" cy="8" r="40" />
-        <circle class="rank-circle" cx="-10" cy="8" r="40" />
-        <g class="rank-text">
+        <circle class="rank-circle" cx="-10" cy="8" r="40" />` +
+        (show_avatar ? "" :`<g class="rank-text">
           <text
             x="-5"
             y="3"
@@ -192,7 +205,7 @@ const renderStatsCard = (stats = {}, options = { hide: [] }) => {
           >
             ${rank.level}
           </text>
-        </g>
+        </g>`) + `
       </g>`;
 
   // the better user's score the the rank will be closer to zero so

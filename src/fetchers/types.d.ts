@@ -23,6 +23,7 @@ export type StatsData = {
   totalStars: number;
   contributedTo: number;
   rank: { level: string; score: number };
+  avatar: string;
 };
 
 export type Lang = {
