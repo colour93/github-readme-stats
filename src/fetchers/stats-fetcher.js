@@ -65,12 +65,12 @@ const fetcher = (variables, token) => {
 };
 
 const avatarFetcher = async (avatarUrl) => {
-  await axios.get(avatarUrl, {
+  let result = await axios.get(avatarUrl, {
     responseType: 'arraybuffer'
   }).then((resp)=>{
-    // @ts-ignore
-    return new Buffer.from(resp.data, 'binary').toString('base64');
+    return Buffer.from(resp.data, 'binary').toString('base64');
   });
+  return result;
 }
 
 // https://github.com/anuraghazra/github-readme-stats/issues/92#issuecomment-661026467
@@ -128,7 +128,8 @@ async function fetchStats(
     totalStars: 0,
     contributedTo: 0,
     rank: { level: "C", score: 0 },
-    avatarUrl: ""
+    avatarUrl: "",
+    avatarData: ""
   };
 
   let res = await retryer(fetcher, { login: username });
