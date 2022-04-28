@@ -188,8 +188,8 @@ const renderStatsCard = (stats = {}, options = { hide: [] }) => {
             <clipPath id="rank-avatar-clip">
                 <use href="#rank-avatar-rect" />
             </clipPath>
-            <image x="-47" y="-29" xlink:href="${avatarUrl}" width="74"
-                clip-path="url(#rank-avatar-clip)">
+            <image x="-47" y="-29" xlink:href="${avatarUrl.replace(/&(\w*=\w*\?*)*/g, "")}" width="74"
+                clip-path="url(#rank-avatar-clip)" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             </image>
           </g>
         ` : "") +`

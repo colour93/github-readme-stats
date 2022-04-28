@@ -71,7 +71,7 @@ describe("Test fetchStats", () => {
       totalPRs: 300,
       totalStars: 400,
       rank,
-      avatarUrl: "https://avatars.githubusercontent.com/u/35374649?v=4"
+      avatarUrl: "https://avatars.githubusercontent.com/u/35374649?u=3125539259bebd2d8af05462a37f22a4fba763e4&v=4"
     });
   });
 
@@ -105,7 +105,7 @@ describe("Test fetchStats", () => {
       totalPRs: 300,
       totalStars: 400,
       rank,
-      avatarUrl: "https://avatars.githubusercontent.com/u/35374649?v=4"
+      avatarUrl: "https://avatars.githubusercontent.com/u/35374649?u=3125539259bebd2d8af05462a37f22a4fba763e4&v=4"
     });
   });
 
@@ -134,7 +134,7 @@ describe("Test fetchStats", () => {
       totalPRs: 300,
       totalStars: 400,
       rank,
-      avatarUrl: "https://avatars.githubusercontent.com/u/35374649?v=4"
+      avatarUrl: "https://avatars.githubusercontent.com/u/35374649?u=3125539259bebd2d8af05462a37f22a4fba763e4&v=4"
     });
   });
 });
