@@ -1,5 +1,4 @@
 // @ts-check
-const axios = require("axios");
 const I18n = require("../common/I18n");
 const Card = require("../common/Card");
 const icons = require("../common/icons");
@@ -62,7 +61,8 @@ const renderStatsCard = (stats = {}, options = { hide: [] }) => {
     totalPRs,
     contributedTo,
     rank,
-    avatarUrl
+    avatarUrl,
+    avatarData
   } = stats;
   const {
     hide = [],
@@ -177,19 +177,6 @@ const renderStatsCard = (stats = {}, options = { hide: [] }) => {
     45 + (statItems.length + 1) * lheight,
     hide_rank ? 0 : 150,
   );
-  
-  // Get avatar and transfer to base64
-  let avatarData;
-  //@ts-ignore
-  axios.get(avatarUrl, {
-    responseType: 'arraybuffer'
-  }).then((resp)=>{
-    // @ts-ignore
-    return new Buffer.from(resp.data, 'binary').toString('base64');
-  }).then((/** @type {object} */ data) => {
-    avatarData = data;
-  })
-
 
   // Conditionally rendered elements
   const rankCircle = hide_rank
@@ -202,7 +189,7 @@ const renderStatsCard = (stats = {}, options = { hide: [] }) => {
             <clipPath id="rank-avatar-clip">
                 <use href="#rank-avatar-rect" />
             </clipPath>
-            <image x="-47" y="-29" xlink:href="${avatarUrl.replace(/&(\w*=\w*\?*)*/g, "")}" width="74"
+            <image x="-47" y="-29" width="74"
                 clip-path="url(#rank-avatar-clip)" href="data:image/png;base64,${avatarData}">
             </image>
           </g>

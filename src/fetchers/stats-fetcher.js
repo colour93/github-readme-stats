@@ -64,6 +64,15 @@ const fetcher = (variables, token) => {
   );
 };
 
+const avatarFetcher = async (avatarUrl) => {
+  axios.get(avatarUrl, {
+    responseType: 'arraybuffer'
+  }).then((resp)=>{
+    // @ts-ignore
+    return new Buffer.from(resp.data, 'binary').toString('base64');
+  });
+}
+
 // https://github.com/anuraghazra/github-readme-stats/issues/92#issuecomment-661026467
 // https://github.com/anuraghazra/github-readme-stats/pull/211/
 const totalCommitsFetcher = async (username) => {
@@ -133,11 +142,15 @@ async function fetchStats(
   }
 
   const user = res.data.data.user;
-
+  
   stats.name = user.name || user.login;
-  stats.avatarUrl = user.avatarUrl;
-  stats.totalIssues = user.openIssues.totalCount + user.closedIssues.totalCount;
 
+  stats.avatarUrl = user.avatarUrl;
+
+  stats.avatarData = await avatarFetcher(stats.avatarUrl);
+
+  stats.totalIssues = user.openIssues.totalCount + user.closedIssues.totalCount;
+  
   // normal commits
   stats.totalCommits = user.contributionsCollection.totalCommitContributions;
 
