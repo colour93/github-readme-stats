@@ -139,7 +139,6 @@ describe("Test /api/", () => {
   it("should have proper cache", async () => {
     const { req, res } = faker({}, data);
     mock.onPost("https://api.github.com/graphql").reply(200, data);
-    //
 
     await api(req, res);
 

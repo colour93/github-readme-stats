@@ -25,6 +25,7 @@ const fetcher = (variables, token) => {
         user(login: $login) {
           name
           login
+          avatarUrl
           contributionsCollection {
             totalCommitContributions
             restrictedContributionsCount
@@ -97,38 +98,6 @@ const totalCommitsFetcher = async (username) => {
   }
 };
 
-const avatarFetcher = async (username) => {
-  if (!githubUsernameRegex.test(username)) {
-    logger.log("Invalid username");
-    return 0;
-  }
-
-  const fetchAvatar = (variables, token) => {
-    return axios({
-      method: "get",
-      url: `https://api.github.com/users/${variables.login}`,
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/vnd.github.cloak-preview",
-        Authorization: `token ${token}`,
-      },
-    });
-  };
-
-  try {
-    let res = await retryer(fetchAvatar, { login: username });
-    if (res.data.avatar_url) {
-      return res.data.avatar_url;
-    };
-  } catch (err) {
-    logger.log(err);
-    // just return 0 if there is something wrong so that
-    // we don't break the whole app
-    return 0;
-  }
-
-}
-
 /**
  * @param {string} username
  * @param {boolean} count_private
@@ -150,7 +119,7 @@ async function fetchStats(
     totalStars: 0,
     contributedTo: 0,
     rank: { level: "C", score: 0 },
-    avatar: ""
+    avatarUrl: ""
   };
 
   let res = await retryer(fetcher, { login: username });
@@ -166,6 +135,7 @@ async function fetchStats(
   const user = res.data.data.user;
 
   stats.name = user.name || user.login;
+  stats.avatarUrl = user.avatarUrl;
   stats.totalIssues = user.openIssues.totalCount + user.closedIssues.totalCount;
 
   // normal commits
@@ -176,8 +146,6 @@ async function fetchStats(
   if (include_all_commits) {
     stats.totalCommits = await totalCommitsFetcher(username);
   }
-
-  stats.avatar = await avatarFetcher(username);
 
   // if count_private then add private commits to totalCommits so far.
   if (count_private) {

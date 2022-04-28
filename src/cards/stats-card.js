@@ -61,7 +61,7 @@ const renderStatsCard = (stats = {}, options = { hide: [] }) => {
     totalPRs,
     contributedTo,
     rank,
-    avatar
+    avatarUrl
   } = stats;
   const {
     hide = [],
@@ -188,7 +188,7 @@ const renderStatsCard = (stats = {}, options = { hide: [] }) => {
             <clipPath id="rank-avatar-clip">
                 <use href="#rank-avatar-rect" />
             </clipPath>
-            <image x="-47" y="-29" xlink:href="${avatar}" width="74"
+            <image x="-47" y="-29" xlink:href="${avatarUrl}" width="74"
                 clip-path="url(#rank-avatar-clip)">
             </image>
           </g>
