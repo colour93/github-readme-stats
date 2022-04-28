@@ -65,7 +65,7 @@ const fetcher = (variables, token) => {
 };
 
 const avatarFetcher = async (avatarUrl) => {
-  axios.get(avatarUrl, {
+  await axios.get(avatarUrl, {
     responseType: 'arraybuffer'
   }).then((resp)=>{
     // @ts-ignore
